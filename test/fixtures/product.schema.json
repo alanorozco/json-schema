@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "productTagId": {"type": "string", "maxLength": 100},
+    "brandLabel": {"type": "string", "maxLength": 100},
+    "productTitle": {"type": "string", "maxLength": 100},
+    "productPrice": {"type": "number"},
+    "productImages": {"type": "string", "format": "uri"},
+    "productDetails": {"type": "string", "maxLength": 100},
+    "reviewsPage": {"type": "string", "format": "uri"},
+    "productPriceCurrency": {"type": "string", "maxLength": 100},
+    "productColor": {"type": "string", "maxLength": 100},
+    "productSize": {"type": "string", "maxLength": 100},
+    "productIcon": {"type": "string", "format": "uri"},
+    "productTagText": {"type": "string", "maxLength": 100},
+    "reviewsData": {"type": "string", "format": "uri"},
+    "ctaText": {"type": "string", "maxLength": 200},
+    "shippingText": {"type": "string", "maxLength": 100}
+  },
+  "required": [
+    "productTagId",
+    "brandLabel",
+    "productTitle",
+    "productPrice",
+    "productImages",
+    "productDetails",
+    "reviewsPage",
+    "productPriceCurrency"
+  ]
+}

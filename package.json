@@ -1,0 +1,17 @@
+{
+  "name": "json-schema",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx esbuild --outdir=dist src/compile.ts",
+    "test": "npx esbuild --platform=node --format=cjs --bundle --outfile=test/build/index.js test/index.ts && node test/build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.14.16",
+    "fast-glob": "^3.2.11"
+  }
+}
