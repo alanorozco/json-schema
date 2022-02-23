@@ -1,0 +1,5 @@
+[
+  "foo must be a string under 10 characters long",
+  "bar must be a string under 5 characters long",
+  "baz must be a string under 3 characters long"
+]

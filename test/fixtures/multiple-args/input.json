@@ -1,8 +1,8 @@
 {
   "type": "object",
   "properties": {
-    "foo": {"type": "string", "maxLength": 200},
-    "bar": {"type": "string", "maxLength": 100},
-    "baz": {"type": "string", "maxLength": 100}
+    "foo": {"type": "string", "maxLength": 10},
+    "bar": {"type": "string", "maxLength": 5},
+    "baz": {"type": "string", "maxLength": 3}
   }
 }
