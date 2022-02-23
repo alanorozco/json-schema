@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx esbuild --format=esm --out-extension:.js=.mjs --bundle --outdir=dist src/compile.ts src/index.ts",
+    "build:entrypoint": "npx esbuild --format=esm --out-extension:.js=.mjs --outdir=dist",
+    "build:compile": "npm run build:entrypoint -- src/compile.ts",
+    "build:runtime": "npm run build:entrypoint -- --bundle src/runtime.ts",
+    "build": "npm run build:compile; npm run build:runtime",
     "test": "npx esbuild --log-level=warning --platform=node --format=cjs --external:uvu --external:fast-glob --external:uvu/assert --bundle --outfile=test/build/index.js test/index.ts && npx uvu test/build/",
     "test:update": "IS_UPDATE=1 npm run test"
   },

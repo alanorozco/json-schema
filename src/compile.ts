@@ -113,21 +113,19 @@ const generateValidatorCall = (property: string, fns: PropertyFn[]) =>
   `validate(obj, '${property}', [${fns.map(({ name }) => name).join(", ")}]),`;
 
 interface CompileOptions {
-  helperPath: string | undefined;
+  runtime?: string;
 }
 
 export function compileJsonSchemaToSource(
   schema: JsonSchema,
-  { helperPath }: CompileOptions = {
-    helperPath: "json-schema",
-  }
+  { runtime = "json-schema" }: CompileOptions = {}
 ): string {
   const { wrappedFns, propertyFns, fnImports } = createProgramMap(schema);
   const out = `
-import {merge, validate} from '${helperPath}';
+import {merge, validate} from '${runtime}';
 import {
 __imports__
-} from '${helperPath}';
+} from '${runtime}';
 
 __fn_defs__
 

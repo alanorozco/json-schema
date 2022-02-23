@@ -7,6 +7,8 @@ import * as assert from "uvu/assert";
 
 const isUpdate = process.env.IS_UPDATE === "1";
 
+const runtime = "../../dist/runtime.mjs";
+
 async function exists(filename) {
   try {
     await stat(filename);
@@ -33,7 +35,7 @@ async function testFixture(schemaFile) {
   const outputFile = getSchemaOutputFilename(schemaFile);
   const output = compileJsonSchemaToSource(
     JSON.parse(await readFile(schemaFile, "utf8")),
-    { helperPath: "../../dist/index.mjs" }
+    { runtime: "../../dist/runtime.mjs" }
   );
   await writeOrCompare(outputFile, output);
 }
