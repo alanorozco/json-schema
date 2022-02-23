@@ -1,10 +1,10 @@
-import {merge, validate} from 'json-schema';
+import {merge, validate} from '../../dist/index.mjs';
 import {
 validateIsRequired,
 validateStringLength,
 validateNumber,
 validateUrl
-} from 'json-schema/validators';
+} from '../../dist/index.mjs';
 
 const validateStringLength_0 = (obj, prop) => validateStringLength(obj, prop, 100);
 const validateStringLength_1 = (obj, prop) => validateStringLength(obj, prop, 200);

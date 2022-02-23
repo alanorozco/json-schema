@@ -1,5 +1,7 @@
 import { ValidationError, ValidatorFn } from "./validators";
 
+export * from "./validators";
+
 export const merge = <T>(arraysOrVoid: (T[] | void)[]) => {
   return (
     arraysOrVoid.reduce((a, b) => (a as T[]).concat(b || []), []) as T[]

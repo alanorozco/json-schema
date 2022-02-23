@@ -1,0 +1,10 @@
+{
+  "productTagId": "foo_productTagId",
+  "brandLabel": "foo_brandLabel",
+  "productTitle": "foo_productTitle",
+  "productPrice": 123,
+  "productImages": "https://foo.com/img.png",
+  "productDetails": "foo_productDetails",
+  "reviewsPage": "https://foo.com/bar/reviews",
+  "productPriceCurrency": "USD"
+}

@@ -127,7 +127,7 @@ export function compileJsonSchemaToSource(
 import {merge, validate} from '${helperPath}';
 import {
 __imports__
-} from '${helperPath}/validators';
+} from '${helperPath}';
 
 __fn_defs__
 
