@@ -1,28 +1,29 @@
 import {merge, validate} from '../../../dist/runtime.mjs';
 import {
 validateIsRequired,
-validateStringLength,
+validateString,
+validateMaxLength,
 validateNumber,
 validateUrl
 } from '../../../dist/runtime.mjs';
 
-const validateStringLength_0 = (obj, prop) => validateStringLength(obj, prop, 100);
-const validateStringLength_1 = (obj, prop) => validateStringLength(obj, prop, 200);
+const validateMaxLength_0 = (obj, prop) => validateMaxLength(obj, prop, 100);
+const validateMaxLength_1 = (obj, prop) => validateMaxLength(obj, prop, 200);
 
 export default (obj) => merge([
-validate(obj, 'productTagId', [validateIsRequired, validateStringLength_0]),
-validate(obj, 'brandLabel', [validateIsRequired, validateStringLength_0]),
-validate(obj, 'productTitle', [validateIsRequired, validateStringLength_0]),
+validate(obj, 'productTagId', [validateIsRequired, validateString, validateMaxLength_0]),
+validate(obj, 'brandLabel', [validateIsRequired, validateString, validateMaxLength_0]),
+validate(obj, 'productTitle', [validateIsRequired, validateString, validateMaxLength_0]),
 validate(obj, 'productPrice', [validateIsRequired, validateNumber]),
-validate(obj, 'productImages', [validateIsRequired, validateUrl]),
-validate(obj, 'productDetails', [validateIsRequired, validateStringLength_0]),
-validate(obj, 'reviewsPage', [validateIsRequired, validateUrl]),
-validate(obj, 'productPriceCurrency', [validateIsRequired, validateStringLength_0]),
-validate(obj, 'productColor', [validateStringLength_0]),
-validate(obj, 'productSize', [validateStringLength_0]),
-validate(obj, 'productIcon', [validateUrl]),
-validate(obj, 'productTagText', [validateStringLength_0]),
-validate(obj, 'reviewsData', [validateUrl]),
-validate(obj, 'ctaText', [validateStringLength_1]),
-validate(obj, 'shippingText', [validateStringLength_0]),
+validate(obj, 'productImages', [validateIsRequired, validateString, validateUrl]),
+validate(obj, 'productDetails', [validateIsRequired, validateString, validateMaxLength_0]),
+validate(obj, 'reviewsPage', [validateIsRequired, validateString, validateUrl]),
+validate(obj, 'productPriceCurrency', [validateIsRequired, validateString, validateMaxLength_0]),
+validate(obj, 'productColor', [validateString, validateMaxLength_0]),
+validate(obj, 'productSize', [validateString, validateMaxLength_0]),
+validate(obj, 'productIcon', [validateString, validateUrl]),
+validate(obj, 'productTagText', [validateString, validateMaxLength_0]),
+validate(obj, 'reviewsData', [validateString, validateUrl]),
+validate(obj, 'ctaText', [validateString, validateMaxLength_1]),
+validate(obj, 'shippingText', [validateString, validateMaxLength_0]),
 ]);

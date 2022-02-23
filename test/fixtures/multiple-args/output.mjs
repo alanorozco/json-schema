@@ -1,14 +1,15 @@
 import {merge, validate} from '../../../dist/runtime.mjs';
 import {
-validateStringLength
+validateString,
+validateMaxLength
 } from '../../../dist/runtime.mjs';
 
-const validateStringLength_0 = (obj, prop) => validateStringLength(obj, prop, 10);
-const validateStringLength_1 = (obj, prop) => validateStringLength(obj, prop, 5);
-const validateStringLength_2 = (obj, prop) => validateStringLength(obj, prop, 3);
+const validateMaxLength_0 = (obj, prop) => validateMaxLength(obj, prop, 10);
+const validateMaxLength_1 = (obj, prop) => validateMaxLength(obj, prop, 5);
+const validateMaxLength_2 = (obj, prop) => validateMaxLength(obj, prop, 3);
 
 export default (obj) => merge([
-validate(obj, 'foo', [validateStringLength_0]),
-validate(obj, 'bar', [validateStringLength_1]),
-validate(obj, 'baz', [validateStringLength_2]),
+validate(obj, 'foo', [validateString, validateMaxLength_0]),
+validate(obj, 'bar', [validateString, validateMaxLength_1]),
+validate(obj, 'baz', [validateString, validateMaxLength_2]),
 ]);

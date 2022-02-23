@@ -12,8 +12,9 @@ type JsonSchemaNumberProperty = {
 
 type JsonSchemaStringProperty = {
   type: "string";
-  format: "uri" | undefined;
-  maxLength: number | undefined;
+  format?: "uri";
+  minLength?: number;
+  maxLength?: number;
 };
 
 type WrappedFn = {
@@ -83,12 +84,16 @@ export function createProgramMap(schema: JsonSchema): ProgramMap {
         addPropertyFn(propertyFns, name, "validateNumber");
         break;
       case "string":
-        const { format, maxLength } = property;
+        const { format, minLength, maxLength } = property;
+        addPropertyFn(propertyFns, name, "validateString");
         if (format === "uri") {
           addPropertyFn(propertyFns, name, "validateUrl");
         }
+        if (typeof minLength === "number") {
+          addPropertyFn(propertyFns, name, "validateMinLength", minLength);
+        }
         if (typeof maxLength === "number") {
-          addPropertyFn(propertyFns, name, "validateStringLength", maxLength);
+          addPropertyFn(propertyFns, name, "validateMaxLength", maxLength);
         }
         break;
     }

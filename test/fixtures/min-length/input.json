@@ -1,0 +1,6 @@
+{
+  "type": "object",
+  "properties": {
+    "foo_hasMinLength3": {"type": "string", "minLength": 3}
+  }
+}
