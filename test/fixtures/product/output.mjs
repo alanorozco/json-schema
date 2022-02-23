@@ -1,10 +1,10 @@
-import {merge, validate} from '../../dist/index.mjs';
+import {merge, validate} from '../../../dist/runtime.mjs';
 import {
 validateIsRequired,
 validateStringLength,
 validateNumber,
 validateUrl
-} from '../../dist/index.mjs';
+} from '../../../dist/runtime.mjs';
 
 const validateStringLength_0 = (obj, prop) => validateStringLength(obj, prop, 100);
 const validateStringLength_1 = (obj, prop) => validateStringLength(obj, prop, 200);

@@ -1,13 +1,17 @@
 import { compileJsonSchemaToSource } from "../src/compile";
-import { basename } from "path";
+import { extname, basename } from "path";
 import { readFile, stat, writeFile } from "fs/promises";
 import * as glob from "fast-glob";
 import { test } from "uvu";
 import * as assert from "uvu/assert";
 
-const isUpdate = process.env.IS_UPDATE === "1";
+const dir = "test/fixtures";
+const runtime = "../../../dist/runtime.mjs";
 
-const runtime = "../../dist/runtime.mjs";
+const getSchemaInputFilename = (name) => `${dir}/${name}/input.json`;
+const getSchemaOutputFilename = (name) => `${dir}/${name}/output.mjs`;
+
+const isUpdate = process.env.IS_UPDATE === "1";
 
 async function exists(filename) {
   try {
@@ -18,8 +22,8 @@ async function exists(filename) {
   }
 }
 
-const getSchemaOutputFilename = (inputFile) =>
-  `test/fixtures/${basename(inputFile)}.mjs`;
+const removeExtension = (filename) =>
+  filename.substring(0, filename.length - extname(filename).length);
 
 async function writeOrCompare(filename, actual) {
   let expected = actual;
@@ -31,37 +35,39 @@ async function writeOrCompare(filename, actual) {
   assert.equal(expected, actual);
 }
 
-async function testFixture(schemaFile) {
-  const outputFile = getSchemaOutputFilename(schemaFile);
+async function testCompiled(inputFile, outputFile) {
   const output = compileJsonSchemaToSource(
-    JSON.parse(await readFile(schemaFile, "utf8")),
-    { runtime: "../../dist/runtime.mjs" }
+    JSON.parse(await readFile(inputFile, "utf8")),
+    { runtime }
   );
   await writeOrCompare(outputFile, output);
 }
 
-async function testRunnable(schemaFile, testFile) {
-  const importPath = `../../${getSchemaOutputFilename(schemaFile)}`;
+async function testValidated(testCase, testFile) {
+  const importPath = `../../${getSchemaOutputFilename(testCase)}`;
   const { default: validate } = await import(importPath);
   const input = JSON.parse(await readFile(testFile, "utf8"));
   const output = JSON.stringify(validate(input), null, 2) + "\n";
-  const outputFile = `${testFile}.output.json`;
+  const outputFile = `${removeExtension(testFile)}.output.json`;
   await writeOrCompare(outputFile, output);
 }
 
-const schemaFiles = glob.sync("test/fixtures/*.json");
-for (const schemaFile of schemaFiles) {
-  const schemaName = basename(schemaFile, ".json");
-  test(schemaName, () => testFixture(schemaFile));
+const testCases = glob.sync("*", {
+  cwd: dir,
+  onlyDirectories: true,
+});
+for (const name of testCases) {
+  test(`${name}:compile`, () =>
+    testCompiled(getSchemaInputFilename(name), getSchemaOutputFilename(name)));
 
-  const testFiles = glob.sync([
-    `test/fixtures/${schemaName}/*.json`,
+  const validatedFiles = glob.sync([
+    `${dir}/${name}/validated/*.json`,
     "!**/*.output.json",
   ]);
-  for (const testFile of testFiles) {
-    const testName = basename(testFile, ".json");
-    test(`${schemaName} — ${testName}`, () =>
-      testRunnable(schemaFile, testFile));
+  for (const validatedFile of validatedFiles) {
+    const testName = basename(removeExtension(validatedFile));
+    test(`${name}:validated — ${testName}`, () =>
+      testValidated(name, validatedFile));
   }
 }
 
