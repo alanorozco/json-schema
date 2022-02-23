@@ -42,7 +42,7 @@ async function testRunnable(schemaFile, testFile) {
   const importPath = `../../${getSchemaOutputFilename(schemaFile)}`;
   const { default: validate } = await import(importPath);
   const input = JSON.parse(await readFile(testFile, "utf8"));
-  const output = JSON.stringify(validate(input), null, 2);
+  const output = JSON.stringify(validate(input), null, 2) + "\n";
   const outputFile = `${testFile}.output.json`;
   await writeOrCompare(outputFile, output);
 }

@@ -144,5 +144,5 @@ __validations__
         .map(([property, fns]) => generateValidatorCall(property, fns))
         .join("\n")
     );
-  return out;
+  return out + "\n";
 }
