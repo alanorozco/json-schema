@@ -54,11 +54,3 @@ export type ValidatorName =
   | "validateUrl"
   | "validateNumber"
   | "validateStringLength";
-
-export const validators: { [name in ValidatorName]: ValidatorFn } = {
-  validateIsInteger,
-  validateIsRequired,
-  validateUrl,
-  validateNumber,
-  validateStringLength,
-};
