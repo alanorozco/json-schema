@@ -28,13 +28,13 @@ type PropertyFns = {
   [property: string]: PropertyFn[];
 };
 
-interface ValidatorProgram {
+interface ProgramMap {
   fnImports: ValidatorName[];
   wrappedFns: WrappedFn[];
   propertyFns: PropertyFns;
 }
 
-export function mapToCalls(schema: JsonSchema): ValidatorProgram {
+export function createProgramMap(schema: JsonSchema): ProgramMap {
   const { properties } = schema;
 
   const fnImports: Set<ValidatorName> = new Set();
@@ -122,7 +122,7 @@ export function compileJsonSchemaToSource(
     helperPath: "json-schema",
   }
 ): string {
-  const { wrappedFns, propertyFns, fnImports } = mapToCalls(schema);
+  const { wrappedFns, propertyFns, fnImports } = createProgramMap(schema);
   const out = `
 import {merge, validate} from '${helperPath}';
 import {
