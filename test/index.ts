@@ -1,7 +1,7 @@
 import { compileJsonSchemaToSource } from "../src/compile";
 import { basename } from "path";
 import { readFile, stat, writeFile } from "fs/promises";
-import glob from "fast-glob";
+import * as glob from "fast-glob";
 import { test } from "uvu";
 import * as assert from "uvu/assert";
 
